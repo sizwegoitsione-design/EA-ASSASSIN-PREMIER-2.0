@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EA Assassin Premier 2.0</title>
+  <style>
+    :root {
+      --primary: #ff0000;
+      --dark: #0a0a0a;
+      --light: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    header h1 { font-size: 22px; color: var(--primary); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover { color: var(--primary); }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+     background: url('ea-assassin.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--light);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      filter: brightness(1.25) contrast(1.15);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.12);
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      box-shadow: inset 0 0 200px rgba(255, 0, 0, 0.25);
+      animation: pulse 3s infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes pulse {
+      from { box-shadow: inset 0 0 200px rgba(255, 0, 0, 0.15); }
+      to { box-shadow: inset 0 0 400px rgba(255, 0, 0, 0.45); }
+    }
+
+    .hero-content { position: relative; z-index: 3; }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+      text-shadow: 0 0 20px rgba(255,0,0,0.8);
+    }
+
+    .hero p { font-size: 1.3rem; margin-bottom: 20px; }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .countdown div { text-align: center; }
+    .countdown div span {
+      display: block;
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--primary);
+      text-shadow: 0 0 15px rgba(255,0,0,0.7);
+    }
+
+    .btn {
+      background: var(--primary);
+      color: var(--light);
+      padding: 12px 30px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+      box-shadow: 0 0 15px rgba(255,0,0,0.6);
+      position: relative;
+      animation: glowPulse 2s infinite alternate, shake 6s infinite;
+    }
+
+    .btn:hover {
+      background: #b30000;
+      box-shadow: 0 0 25px rgba(255,0,0,0.9);
+    }
+
+    @keyframes glowPulse {
+      from { box-shadow: 0 0 10px rgba(255,0,0,0.5); }
+      to   { box-shadow: 0 0 25px rgba(255,0,0,1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      50% { transform: translateX(3px); }
+      75% { transform: translateX(-2px); }
+    }
+
+    section { padding: 80px 20px; text-align: center; }
+    section h2 { font-size: 2rem; margin-bottom: 20px; color: var(--primary); }
+
+    /* Pricing + Offered Section */
+    .pricing {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .price-card {
+      background: #1a1a1a;
+      padding: 25px 20px;
+      border-radius: 12px;
+      width: 280px;
+      border: 2px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(255,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .price-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(255,0,0,0.4);
+    }
+
+    .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+    .price-card p { margin-bottom: 15px; font-size: 1rem; }
+
+    /* Icon Badge Style */
+    .icon-badge {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .icon-badge img {
+      width: 36px;
+      height: 36px;
+      filter: invert(33%) sepia(97%) saturate(7450%) hue-rotate(356deg) brightness(90%) contrast(110%);
+    }
+
+    .icon-badge .overlay {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #111;
+      padding: 3px;
+    }
+
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EA Assassin Premier 2.0</h1>
+    <nav>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#offered">What You Are Offered</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" aria-label="EA Assassin Premier 2.0">
+    <div class="hero-content">
+      <h2>EA Assassin Premier 2.0</h2>
+      <p>🔥 50% Special Limited Offer Ends Soon 🔥</p>
+      <div id="countdown" class="countdown"></div>
+      <a href="#pricing" class="btn">Buy Now</a>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>Features</h2>
+    <p>✔ Fully automated trading<br>✔ Laptop & Mobile Version<br>✔ Advanced risk management<br>✔ Easy setup</p>
+  </section>
+
+  <!-- WHAT YOU ARE OFFERED Section -->
+  <section id="offered">
+    <h2>WHAT YOU ARE OFFERED</h2>
+    <div class="pricing">
+
+      <!-- Consistent -->
+      <div class="price-card">
+        <div class="icon-badge">
+          <img src="https://img.icons8.com/ios-filled/100/ffffff/consistency.png" alt="Consistent Icon">
+        </div>
+        <h3>Consistent</h3>
+        <p>Automated systems operate based on a fixed set of rules, ensuring consistent execution of the trading strategy and significantly minimizing the risk of human error.</p>
+      </div>
+
+      <!-- Risk Management -->
+      <div class="price-card">
+        <div class="icon-badge">
+          <img src="https://img.icons8.com/ios-filled/100/ffffff/risk.png" alt="Risk Management Icon">
+        </div>
+        <h3>Risk Management</h3>
+        <p>Automated trading systems can be programmed with robust risk management parameters such as stop-loss orders, dynamic position sizing, and predefined risk-reward ratios.</p>
+      </div>
+
+      <!-- Reducing Human Errors -->
+      <div class="price-card">
+        <div class="icon-badge">
+          <img src="https://img.icons8.com/ios-filled/100/ffffff/computer.png" alt="Human Errors Icon">
+        </div>
+        <h3>Reducing Human Errors</h3>
+        <p>Human error is a frequent contributor to trading losses. By automating order entry and execution, trading systems significantly reduce the risk of manual mistakes.</p>
+      </div>
+
+      <!-- 24/7 Support -->
+      <div class="price-card">
+        <div class="icon-badge">
+          <img src="https://img.icons8.com/ios-filled/100/ffffff/microphone.png" alt="Microphone Icon">
+          <img class="overlay" src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" alt="Speech Bubble Icon">
+        </div>
+        <h3>24/7 Support</h3>
+        <p>Automated systems can operate continuously, executing trades around the clock even when the trader is offline. This ensures no opportunity is missed due to time constraints.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2>PC & Mobile Version</h2>
+    <p>Compatibility: Android & iPhone || Windows & Mac OS</p>
+    <div class="pricing">
+      <div class="price-card">
+        <h3>Mobile Version</h3>
+        <p style="text-decoration: line-through; opacity: 0.6;">R2499.99</p>
+        <p style="color: var(--primary); font-size: 1.5rem; font-weight: bold;">R1299.99</p>
+        <a href="https://www.paypal.com/ncp/payment/MR897JMSH99KQ" target="_blank" class="btn">Order Mobile Version</a>
+      </div>
+      <div class="price-card">
+        <h3>PC Version</h3>
+        <p style="text-decoration: line-through; opacity: 0.6;">R4499.99</p>
+        <p style="color: var(--primary); font-size: 1.5rem; font-weight: bold;">R2499.99</p>
+        <a href="https://www.paypal.com/ncp/payment/RYBS5SBFKQMU2" target="_blank" class="btn">Order PC Version</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:freddysizwe1@gmail.com">freddysizwe1@gmail.com</a></p>
+    <p>Phone: <a href="tel:0652009446">065 200 9446</a></p>
+    <p>WhatsApp: <a href="https://wa.me/0833112692" target="_blank">Chat on WhatsApp</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 EA Assassin Premier 2.0. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const endDate = new Date("October 5, 2025 23:59:59").getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "<div><span>00</span>Expired</div>";
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const daysStr = String(days).padStart(2, "0");
+      const hoursStr = String(hours).padStart(2, "0");
+      const minutesStr = String(minutes).padStart(2, "0");
+      const secondsStr = String(seconds).padStart(2, "0");
+
+      document.getElementById("countdown").innerHTML = `
+        <div><span>${daysStr}</span>Days</div>
+        <div><span>${hoursStr}</span>Hrs</div>
+        <div><span>${minutesStr}</span>Mins</div>
+        <div><span>${secondsStr}</span>Secs</div>
+      `;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
